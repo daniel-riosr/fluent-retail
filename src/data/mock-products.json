@@ -1,0 +1,276 @@
+[
+  {
+    "id": "1",
+    "name": "Laptop Pro 15\"",
+    "sku": "LAP-001",
+    "price": 1299.99,
+    "category": "Electrónica",
+    "stock": 15,
+    "description": "Laptop profesional de alto rendimiento con procesador Intel Core i7, 16GB RAM, 512GB SSD. Pantalla Full HD de 15 pulgadas. Ideal para trabajo y entretenimiento.",
+    "specifications": {
+      "Procesador": "Intel Core i7 11va Gen",
+      "RAM": "16GB DDR4",
+      "Almacenamiento": "512GB SSD NVMe",
+      "Pantalla": "15.6\" Full HD IPS",
+      "Gráficos": "Intel Iris Xe",
+      "Peso": "1.8kg"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop"
+    ],
+    "featured": true,
+    "rating": 4.5,
+    "reviewCount": 127
+  },
+  {
+    "id": "2",
+    "name": "Mouse Inalámbrico Ergonómico",
+    "sku": "MOU-002",
+    "price": 34.99,
+    "category": "Accesorios",
+    "stock": 50,
+    "description": "Mouse inalámbrico con diseño ergonómico, 6 botones programables, sensor óptico de precisión. Batería recargable de larga duración.",
+    "specifications": {
+      "Conexión": "2.4GHz + Bluetooth",
+      "DPI": "800-3200 ajustable",
+      "Botones": "6 programables",
+      "Batería": "Hasta 70 días",
+      "Compatibilidad": "Windows, Mac, Linux"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800&h=600&fit=crop"
+    ],
+    "featured": false,
+    "rating": 4.3,
+    "reviewCount": 89
+  },
+  {
+    "id": "3",
+    "name": "Teclado Mecánico RGB",
+    "sku": "KEY-003",
+    "price": 89.99,
+    "category": "Accesorios",
+    "stock": 30,
+    "description": "Teclado mecánico gaming con switches azules, iluminación RGB personalizable, reposamuñecas incluido. Construcción duradera de aluminio.",
+    "specifications": {
+      "Switches": "Mecánicos Azules",
+      "Iluminación": "RGB por tecla",
+      "Conectividad": "USB-C desmontable",
+      "Material": "Base de aluminio",
+      "Teclas": "104 teclas, QWERTY español"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&h=600&fit=crop"
+    ],
+    "featured": true,
+    "rating": 4.7,
+    "reviewCount": 203
+  },
+  {
+    "id": "4",
+    "name": "Monitor 27\" 4K UHD",
+    "sku": "MON-004",
+    "price": 449.99,
+    "category": "Electrónica",
+    "stock": 20,
+    "description": "Monitor profesional 27 pulgadas con resolución 4K UHD, panel IPS con 99% sRGB, HDR400. Frecuencia de 60Hz, perfecto para diseño y productividad.",
+    "specifications": {
+      "Tamaño": "27 pulgadas",
+      "Resolución": "3840x2160 (4K UHD)",
+      "Panel": "IPS",
+      "Frecuencia": "60Hz",
+      "HDR": "HDR400",
+      "Conectividad": "HDMI 2.0, DisplayPort 1.4, USB-C"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&h=600&fit=crop"
+    ],
+    "featured": true,
+    "rating": 4.6,
+    "reviewCount": 156
+  },
+  {
+    "id": "5",
+    "name": "Auriculares Bluetooth Premium",
+    "sku": "AUD-005",
+    "price": 179.99,
+    "category": "Audio",
+    "stock": 40,
+    "description": "Auriculares over-ear con cancelación activa de ruido, audio de alta fidelidad, 30 horas de batería. Bluetooth 5.0 y conexión por cable opcional.",
+    "specifications": {
+      "Tipo": "Over-ear cerrados",
+      "Cancelación de ruido": "ANC activa",
+      "Batería": "30 horas con ANC",
+      "Bluetooth": "5.0",
+      "Drivers": "40mm neodimio",
+      "Peso": "250g"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop"
+    ],
+    "featured": false,
+    "rating": 4.4,
+    "reviewCount": 312
+  },
+  {
+    "id": "6",
+    "name": "Webcam Full HD 1080p",
+    "sku": "WEB-006",
+    "price": 69.99,
+    "category": "Accesorios",
+    "stock": 35,
+    "description": "Cámara web Full HD con micrófono estéreo integrado, enfoque automático, corrección de luz. Ideal para videollamadas profesionales y streaming.",
+    "specifications": {
+      "Resolución": "1920x1080 Full HD",
+      "FPS": "30fps",
+      "Micrófono": "Estéreo integrado",
+      "Campo de visión": "90 grados",
+      "Enfoque": "Automático",
+      "Conexión": "USB 2.0"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&h=600&fit=crop"
+    ],
+    "featured": false,
+    "rating": 4.2,
+    "reviewCount": 78
+  },
+  {
+    "id": "7",
+    "name": "Tablet 10\" 128GB",
+    "sku": "TAB-007",
+    "price": 329.99,
+    "category": "Electrónica",
+    "stock": 25,
+    "description": "Tablet de 10 pulgadas con pantalla 2K, procesador octa-core, 128GB almacenamiento expandible. Incluye funda con teclado y stylus.",
+    "specifications": {
+      "Pantalla": "10.1\" 2K (2000x1200)",
+      "Procesador": "Octa-core 2.3GHz",
+      "RAM": "6GB",
+      "Almacenamiento": "128GB + microSD",
+      "Batería": "7000mAh",
+      "Cámara": "13MP trasera, 8MP frontal"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800&h=600&fit=crop"
+    ],
+    "featured": true,
+    "rating": 4.5,
+    "reviewCount": 194
+  },
+  {
+    "id": "8",
+    "name": "Dock USB-C 11 en 1",
+    "sku": "DOC-008",
+    "price": 79.99,
+    "category": "Accesorios",
+    "stock": 45,
+    "description": "Hub USB-C con 11 puertos: HDMI 4K, 3x USB-A 3.0, USB-C PD 100W, Ethernet, lector SD/microSD, audio 3.5mm. Aluminio premium.",
+    "specifications": {
+      "Puertos": "11 en total",
+      "HDMI": "4K@60Hz",
+      "USB-A": "3x USB 3.0 (5Gbps)",
+      "USB-C": "PD 100W",
+      "Ethernet": "Gigabit RJ45",
+      "Material": "Aluminio anodizado"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=800&h=600&fit=crop"
+    ],
+    "featured": false,
+    "rating": 4.6,
+    "reviewCount": 142
+  },
+  {
+    "id": "9",
+    "name": "Silla Gaming Ergonómica",
+    "sku": "CHA-009",
+    "price": 249.99,
+    "category": "Muebles",
+    "stock": 12,
+    "description": "Silla gaming con soporte lumbar ajustable, reposabrazos 4D, reclinación 180°, base de metal reforzada. Tapizado en cuero sintético premium.",
+    "specifications": {
+      "Material": "Cuero PU premium",
+      "Reclinación": "90-180 grados",
+      "Reposabrazos": "4D ajustables",
+      "Ruedas": "Nylon 60mm",
+      "Capacidad": "Hasta 150kg",
+      "Garantía": "2 años"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=800&h=600&fit=crop"
+    ],
+    "featured": false,
+    "rating": 4.4,
+    "reviewCount": 91
+  },
+  {
+    "id": "10",
+    "name": "Escritorio Elevable Eléctrico",
+    "sku": "DES-010",
+    "price": 499.99,
+    "category": "Muebles",
+    "stock": 8,
+    "description": "Escritorio de altura ajustable eléctricamente, superficie 140x70cm, memoria de 4 posiciones, motor silencioso. Estructura de acero resistente.",
+    "specifications": {
+      "Dimensiones": "140x70cm",
+      "Altura": "72-120cm ajustable",
+      "Capacidad": "70kg",
+      "Motor": "Doble, silencioso",
+      "Memorias": "4 posiciones",
+      "Material": "Tablero MDF, patas acero"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&h=600&fit=crop"
+    ],
+    "featured": true,
+    "rating": 4.8,
+    "reviewCount": 67
+  },
+  {
+    "id": "11",
+    "name": "Lámpara LED de Escritorio",
+    "sku": "LAM-011",
+    "price": 39.99,
+    "category": "Iluminación",
+    "stock": 60,
+    "description": "Lámpara LED regulable con 5 modos de color y 5 niveles de brillo, brazo articulado, base con carga inalámbrica Qi. Control táctil.",
+    "specifications": {
+      "Tipo": "LED",
+      "Modos": "5 temperaturas color",
+      "Brillo": "5 niveles",
+      "Extras": "Carga inalámbrica Qi",
+      "Potencia": "12W",
+      "Vida útil": "50000 horas"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&h=600&fit=crop"
+    ],
+    "featured": false,
+    "rating": 4.3,
+    "reviewCount": 134
+  },
+  {
+    "id": "12",
+    "name": "Soporte Monitor Doble",
+    "sku": "SOP-012",
+    "price": 59.99,
+    "category": "Accesorios",
+    "stock": 28,
+    "description": "Brazo articulado para dos monitores de 13-32 pulgadas, rotación 360°, inclinación y altura ajustables. Liberá espacio en tu escritorio.",
+    "specifications": {
+      "Monitores": "2x 13-32 pulgadas",
+      "Peso máx": "8kg por brazo",
+      "Movimiento": "360° rotación, ±90° tilt",
+      "Montaje": "Pinza o pasante",
+      "VESA": "75x75, 100x100mm",
+      "Material": "Acero reforzado"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&h=600&fit=crop"
+    ],
+    "featured": false,
+    "rating": 4.5,
+    "reviewCount": 98
+  }
+]
