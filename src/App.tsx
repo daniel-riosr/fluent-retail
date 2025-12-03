@@ -14,10 +14,14 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import Login from "./pages/Login";
+import Landing from "./pages/Landing";
 import Account from "./pages/Account";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminOrders from "./pages/admin/Orders";
 import AdminInventory from "./pages/admin/Inventory";
+import Transacciones from "./pages/Transacciones";
+import Maestros from "./pages/Maestros";
+import Usuarios from "./pages/Usuarios";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,13 +50,38 @@ const App = () => (
         <AuthProvider>
           <CartProvider>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Landing />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/catalog" element={<Catalog />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
               <Route path="/login" element={<Login />} />
+              <Route
+                path="/transacciones"
+                element={
+                  <ProtectedRoute>
+                    <Transacciones />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/maestros"
+                element={
+                  <ProtectedRoute>
+                    <Maestros />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/usuarios"
+                element={
+                  <ProtectedRoute adminOnly>
+                    <Usuarios />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/account"
                 element={
