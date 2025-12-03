@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabase';
 
 interface AuthContextType {
   user: User | null;
+  isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAdmin: boolean;
@@ -13,10 +14,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Cargar usuario desde la sesión al iniciar
   useEffect(() => {
     const loadUser = async () => {
+      setIsLoading(true);
       const storedUserId = localStorage.getItem('auth_user_id');
       if (storedUserId) {
         try {
@@ -31,6 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           localStorage.removeItem('auth_user_id');
         }
       }
+      setIsLoading(false);
     };
 
     loadUser();
@@ -81,7 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const isAdmin = user?.role === 'ADMIN';
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAdmin }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
