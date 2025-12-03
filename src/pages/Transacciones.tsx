@@ -53,17 +53,13 @@ const Transacciones = () => {
   // Cargar maestros al montar
   useEffect(() => {
     const init = async () => {
-      console.log('🚀 Inicializando página de Transacciones...');
       setIsLoadingData(true);
       setError(null);
       try {
         await loadMaestros();
-        console.log('✅ Maestros cargados exitosamente');
       } catch (err) {
-        console.error('❌ Error al inicializar:', err);
         setError('Error al cargar los datos. Por favor, recarga la página.');
       } finally {
-        console.log('🏁 Finalizando carga, estableciendo isLoadingData = false');
         setIsLoadingData(false);
       }
     };
@@ -83,18 +79,13 @@ const Transacciones = () => {
 
   const loadMaestros = async () => {
     try {
-      console.log('📦 Cargando maestros...');
       const data = await api.getMaestros();
-      console.log('📦 Maestros cargados:', data.length);
       setMaestros(data);
       if (data.length > 0 && !maestroSeleccionado) {
-        console.log('📦 Seleccionando primer maestro:', data[0].id);
         setMaestroSeleccionado(data[0].id);
       } else if (data.length === 0) {
-        console.warn('⚠️ No hay maestros disponibles');
       }
     } catch (error: any) {
-      console.error('❌ Error al cargar maestros:', error);
       const errorMessage = error?.message || 'No se pudieron cargar los maestros';
       toast({
         title: 'Error',
@@ -191,17 +182,8 @@ const Transacciones = () => {
 
   const maestroActual = maestros.find(m => m.id === maestroSeleccionado);
 
-  // Debug logs
-  console.log('🎨 Renderizando Transacciones:', {
-    isLoadingData,
-    error,
-    maestrosCount: maestros.length,
-    maestroSeleccionado,
-    transaccionesCount: transacciones.length,
-  });
 
   if (isLoadingData) {
-    console.log('⏳ Mostrando estado de carga...');
     return (
       <div className="flex h-screen w-full">
         <div style={{ width: '16rem', flexShrink: 0 }}>
@@ -218,7 +200,6 @@ const Transacciones = () => {
   }
 
   if (error) {
-    console.log('❌ Mostrando error:', error);
     return (
       <div className="flex h-screen w-full">
         <div style={{ width: '16rem', flexShrink: 0 }}>
@@ -236,7 +217,6 @@ const Transacciones = () => {
     );
   }
 
-  console.log('✅ Renderizando contenido principal');
   return (
     <div className="flex h-screen w-full">
       <div style={{ width: '16rem', flexShrink: 0 }}>
@@ -245,26 +225,12 @@ const Transacciones = () => {
       <main className="flex-1 overflow-auto min-w-0">
         <div className="container mx-auto p-6">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold mb-2" style={{ color: 'red', backgroundColor: 'yellow', padding: '20px' }}>
-              🎯 GESTIÓN DE TRANSACCIONES - ESTO DEBE SER VISIBLE
+            <h1 className="text-3xl font-bold mb-2">
+              Gestión de Transacciones
             </h1>
-            <p className="text-muted-foreground" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+            <p className="text-muted-foreground">
               Visualiza y gestiona las transacciones de inventario
             </p>
-          </div>
-
-          {/* Panel de Debug - Temporal */}
-          <div className="mb-4 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg">
-            <h3 className="font-bold mb-2">🔍 Debug Info:</h3>
-            <ul className="text-sm space-y-1">
-              <li>✅ Maestros cargados: <strong>{maestros.length}</strong></li>
-              <li>✅ Maestro seleccionado: <strong>{maestroSeleccionado || 'NINGUNO'}</strong></li>
-              <li>✅ Transacciones: <strong>{transacciones.length}</strong></li>
-              <li>✅ Estado carga: <strong>{isLoadingData ? 'Cargando...' : 'Completado'}</strong></li>
-              {maestroActual && (
-                <li>✅ Maestro actual: <strong>{maestroActual.nombre}</strong> (Saldo: {maestroActual.saldo})</li>
-              )}
-            </ul>
           </div>
 
           {/* Selector de Maestro */}
@@ -398,17 +364,6 @@ const Transacciones = () => {
             </div>
           )}
           
-          {/* Debug info - remover en producción */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="mt-4 p-4 bg-muted rounded text-xs">
-              <p><strong>Debug:</strong></p>
-              <p>Maestros cargados: {maestros.length}</p>
-              <p>Maestro seleccionado: {maestroSeleccionado || 'Ninguno'}</p>
-              <p>Transacciones: {transacciones.length}</p>
-              <p>Estado de carga: {isLoadingData ? 'Cargando...' : 'Completado'}</p>
-              {error && <p className="text-destructive">Error: {error}</p>}
-            </div>
-          )}
         </div>
       </main>
 
