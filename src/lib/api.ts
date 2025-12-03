@@ -211,6 +211,7 @@ export const api = {
   async createMaestro(nombre: string, saldoInicial: number, creadoPor: string): Promise<Maestro> {
     // Generar ID para el maestro
     const maestroId = crypto.randomUUID();
+    const now = new Date().toISOString();
     
     const { data, error } = await supabase
       .from('maestros')
@@ -219,6 +220,8 @@ export const api = {
         nombre,
         saldo: saldoInicial,
         creadoPor,
+        createdAt: now,
+        updatedAt: now,
       })
       .select(`
         *,
@@ -229,6 +232,32 @@ export const api = {
     if (error) {
       console.error('Error al crear maestro:', error);
       throw new Error('No se pudo crear el maestro');
+    }
+
+    // Si el saldo inicial es mayor que 0, crear una transacción de entrada automáticamente
+    if (saldoInicial > 0) {
+      try {
+        const transaccionId = crypto.randomUUID();
+        const { error: transError } = await supabase
+          .from('transacciones')
+          .insert({
+            id: transaccionId,
+            tipo: 'ENTRADA',
+            cantidad: saldoInicial,
+            maestroId: maestroId,
+            usuarioId: creadoPor,
+            createdAt: now,
+          });
+
+        if (transError) {
+          console.error('Error al crear transacción inicial:', transError);
+          // No lanzamos error aquí para no fallar la creación del maestro
+          // Solo registramos el error
+        }
+      } catch (transErr) {
+        console.error('Error al crear transacción inicial:', transErr);
+        // No lanzamos error aquí para no fallar la creación del maestro
+      }
     }
 
     return {
@@ -357,8 +386,8 @@ export const api = {
 
     if (!maestro) return [];
 
-    // Agrupar por fecha y calcular saldo acumulado
-    const saldosPorFecha: { [key: string]: number } = {};
+    // Agrupar por hora y calcular saldo acumulado
+    const saldosPorHora: { [key: string]: number } = {};
     let saldoAcumulado = 0;
 
     // Ordenar transacciones por fecha (más antiguas primero)
@@ -367,15 +396,25 @@ export const api = {
     );
 
     transaccionesOrdenadas.forEach(trans => {
-      const fecha = new Date(trans.createdAt).toISOString().split('T')[0];
+      // Agrupar por hora: YYYY-MM-DDTHH:00:00
+      const fechaHora = new Date(trans.createdAt);
+      const hora = new Date(
+        fechaHora.getFullYear(),
+        fechaHora.getMonth(),
+        fechaHora.getDate(),
+        fechaHora.getHours(),
+        0,
+        0
+      ).toISOString();
+      
       saldoAcumulado = trans.tipo === 'ENTRADA' 
         ? saldoAcumulado + trans.cantidad 
         : saldoAcumulado - trans.cantidad;
-      saldosPorFecha[fecha] = saldoAcumulado;
+      saldosPorHora[hora] = saldoAcumulado;
     });
 
-    // Convertir a array y ordenar por fecha
-    return Object.entries(saldosPorFecha)
+    // Convertir a array y ordenar por fecha/hora
+    return Object.entries(saldosPorHora)
       .map(([fecha, saldo]) => ({ fecha, saldo }))
       .sort((a, b) => a.fecha.localeCompare(b.fecha));
   },

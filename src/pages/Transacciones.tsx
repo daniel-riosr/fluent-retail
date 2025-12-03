@@ -348,11 +348,11 @@ const Transacciones = () => {
                 </div>
               </div>
 
-              {/* Gráfica de Saldos Diarios */}
+              {/* Gráfica de Saldos por Hora */}
               {saldosDiarios.length > 0 && (
                 <div className="mb-6">
                   <h2 className="text-xl font-semibold mb-4">
-                    Evolución de Saldos Diarios - {maestroActual?.nombre}
+                    Evolución de Saldos por Hora - {maestroActual?.nombre}
                   </h2>
                   <div className="border rounded-lg p-4 bg-white">
                     <ResponsiveContainer width="100%" height={300}>
@@ -360,11 +360,14 @@ const Transacciones = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis
                           dataKey="fecha"
-                          tickFormatter={(value) => format(new Date(value), 'dd/MM', { locale: es })}
+                          tickFormatter={(value) => format(new Date(value), 'dd/MM HH:mm', { locale: es })}
+                          angle={-45}
+                          textAnchor="end"
+                          height={80}
                         />
                         <YAxis />
                         <Tooltip
-                          labelFormatter={(value) => format(new Date(value), 'dd/MM/yyyy', { locale: es })}
+                          labelFormatter={(value) => format(new Date(value), 'dd/MM/yyyy HH:mm', { locale: es })}
                         />
                         <Legend />
                         <Line
