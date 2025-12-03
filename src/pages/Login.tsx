@@ -37,8 +37,8 @@ const Login = () => {
     try {
       const success = await login(email, password);
       if (success) {
-        // Navigate based on role will be handled by the router
-        navigate('/');
+        // Redirigir a transacciones después del login
+        navigate('/transacciones');
       } else {
         setError('Credenciales inválidas. Intenta de nuevo.');
       }
@@ -129,10 +129,10 @@ const Login = () => {
 
               <div className="space-y-2 text-sm">
                 <div className="p-3 bg-muted rounded-md">
-                  <p className="font-medium mb-1">Cliente:</p>
+                  <p className="font-medium mb-1">Usuario:</p>
                   <p className="text-xs text-muted-foreground">
-                    Email: cliente@ejemplo.com<br />
-                    Contraseña: cliente123
+                    Email: usuario@ejemplo.com<br />
+                    Contraseña: usuario123
                   </p>
                 </div>
                 <div className="p-3 bg-muted rounded-md">

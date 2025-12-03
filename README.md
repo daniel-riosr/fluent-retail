@@ -1,73 +1,199 @@
-# Welcome to your Lovable project
+# Sistema de Gestión de Inventario
 
-## Project info
+Sistema completo de gestión de inventario con autenticación, gestión de transacciones, maestros y usuarios con roles diferenciados.
 
-**URL**: https://lovable.dev/projects/09eb5f4f-6156-4c1f-9c19-e11adc5ff9c3
+## Integrantes del Equipo
 
-## How can I edit this code?
+[Agregar nombres de los integrantes del equipo aquí]
 
-There are several ways of editing your application.
+## Tecnologías Utilizadas
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **UI Components**: shadcn/ui + Tailwind CSS
+- **Routing**: React Router DOM
+- **State Management**: React Context API
+- **Charts**: Recharts
+- **Database**: Prisma ORM + PostgreSQL (Supabase)
+- **Form Handling**: React Hook Form + Zod
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/09eb5f4f-6156-4c1f-9c19-e11adc5ff9c3) and start prompting.
+## Requisitos Previos
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js 18+ y npm/yarn/bun
+- Cuenta en Supabase (para la base de datos)
 
-**Use your preferred IDE**
+## Instalación
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. Clonar el repositorio:
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd fluent-retail
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. Instalar dependencias:
+```bash
+npm install
+# o
+yarn install
+# o
+bun install
+```
 
-Follow these steps:
+3. Configurar variables de entorno:
+   - Crear un archivo `.env` en la raíz del proyecto
+   - Agregar la variable `DATABASE_URL` con el string de conexión de Supabase:
+   ```
+   DATABASE_URL="postgresql://usuario:contraseña@host:puerto/database?schema=public"
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+4. Configurar Prisma:
+```bash
+# Generar el cliente de Prisma
+npm run db:generate
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Ejecutar las migraciones
+npm run db:migrate
+# o si prefieres hacer push directo
+npm run db:push
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+5. Iniciar el servidor de desarrollo:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+El proyecto estará disponible en `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Usuarios de Prueba
 
-**Use GitHub Codespaces**
+### Administrador
+- **Email**: admin@ejemplo.com
+- **Contraseña**: admin123
+- **Rol**: ADMIN
+- **Permisos**: Acceso completo a todas las funcionalidades, incluyendo gestión de usuarios y creación de maestros.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Usuario Regular
+- **Email**: usuario@ejemplo.com
+- **Contraseña**: usuario123
+- **Rol**: USER
+- **Permisos**: Acceso a gestión de transacciones y maestros, pero no puede administrar usuarios ni crear nuevos maestros.
 
-## What technologies are used for this project?
+## Funcionalidades
 
-This project is built with:
+### 1. Página de Landing
+- Página inicial con información del sistema
+- Botón para iniciar sesión
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### 2. Autenticación
+- Sistema de autenticación manual (sin backend real)
+- Almacenamiento de sesión en localStorage
+- Redirección automática según el rol del usuario
 
-## How can I deploy this project?
+### 3. Sidebar de Navegación
+- Información del usuario (foto y nombre)
+- Enlaces a diferentes secciones:
+  - **Transacciones**: Visible para ADMIN y USER
+  - **Maestros**: Visible para ADMIN y USER
+  - **Usuarios**: Solo visible para ADMIN
+- Botón para cerrar sesión
 
-Simply open [Lovable](https://lovable.dev/projects/09eb5f4f-6156-4c1f-9c19-e11adc5ff9c3) and click on Share -> Publish.
+### 4. Gestión de Transacciones
+- Dropdown para seleccionar el Maestro
+- Tabla con movimientos del maestro seleccionado:
+  - ID del movimiento
+  - Fecha
+  - Tipo (Entrada/Salida)
+  - Cantidad
+  - Responsable del movimiento
+- Botón "Agregar Movimiento" con formulario:
+  - Tipo de movimiento (Entrada/Salida)
+  - Cantidad
+  - Validación de saldo disponible
+- Gráfica de evolución de saldos diarios
 
-## Can I connect a custom domain to my Lovable project?
+### 5. Gestión de Maestros
+- Tabla con todos los maestros:
+  - ID del material
+  - Nombre del Maestro
+  - Saldo actual
+  - Usuario que lo creó
+  - Fecha de creación
+- Botón "Agregar" (solo ADMIN):
+  - Formulario para crear nuevo maestro
+  - Nombre del maestro
+  - Saldo inicial
 
-Yes, you can!
+### 6. Gestión de Usuarios (Solo ADMIN)
+- Tabla con todos los usuarios:
+  - ID del usuario
+  - Correo electrónico
+  - Rol asignado
+  - Fecha de creación
+- Botón "Editar Usuario":
+  - Formulario para actualizar el rol
+  - Dropdown con roles disponibles (ADMIN/USER)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Estructura del Proyecto
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```
+fluent-retail/
+├── prisma/
+│   └── schema.prisma          # Esquema de base de datos
+├── src/
+│   ├── components/
+│   │   ├── Sidebar.tsx        # Componente de navegación lateral
+│   │   └── ui/                # Componentes UI de shadcn
+│   ├── contexts/
+│   │   └── AuthContext.tsx    # Contexto de autenticación
+│   ├── lib/
+│   │   ├── api.ts             # Funciones de API (simulación)
+│   │   └── prisma.ts          # Cliente de Prisma
+│   ├── pages/
+│   │   ├── Landing.tsx        # Página de inicio
+│   │   ├── Login.tsx          # Página de login
+│   │   ├── Transacciones.tsx # Gestión de transacciones
+│   │   ├── Maestros.tsx      # Gestión de maestros
+│   │   └── Usuarios.tsx      # Gestión de usuarios
+│   └── App.tsx                # Componente principal con routing
+└── package.json
+```
+
+## Scripts Disponibles
+
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm run preview` - Previsualiza la build de producción
+- `npm run lint` - Ejecuta el linter
+- `npm run db:generate` - Genera el cliente de Prisma
+- `npm run db:migrate` - Ejecuta las migraciones de base de datos
+- `npm run db:push` - Hace push del esquema a la base de datos
+- `npm run db:studio` - Abre Prisma Studio para visualizar datos
+
+## Despliegue
+
+El proyecto está configurado para desplegarse en Vercel:
+
+1. Conectar el repositorio a Vercel
+2. Configurar las variables de entorno en Vercel
+3. El despliegue se realizará automáticamente
+
+**URL de producción**: [nombreEquipo-Funcionalidad.vercel.app]
+
+## Base de Datos
+
+El proyecto utiliza Prisma ORM con PostgreSQL (Supabase). El esquema incluye:
+
+- **User**: Usuarios del sistema con roles (ADMIN/USER)
+- **Maestro**: Materiales/productos con saldo
+- **Transaccion**: Movimientos de inventario (Entrada/Salida)
+
+## Notas Importantes
+
+- La autenticación es manual y no requiere backend real
+- Los datos se almacenan en localStorage para simulación
+- En producción, se debe implementar un backend API real
+- Las migraciones de Prisma deben ejecutarse antes de usar el sistema
+
+## Licencia
+
+[Especificar licencia si aplica]

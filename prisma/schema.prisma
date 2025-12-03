@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  photo     String?  // URL de la foto del usuario (opcional)
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relaciones
+  maestrosCreados    Maestro[]        @relation("MaestroCreador")
+  transacciones      Transaccion[]
+  
+  @@map("users")
+}
+
+model Maestro {
+  id        String   @id @default(cuid())
+  nombre    String
+  saldo     Float    @default(0)
+  creadoPor String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relaciones
+  creador   User          @relation("MaestroCreador", fields: [creadoPor], references: [id], onDelete: Cascade)
+  transacciones Transaccion[]
+  
+  @@map("maestros")
+}
+
+model Transaccion {
+  id        String   @id @default(cuid())
+  tipo      TipoTransaccion
+  cantidad  Float
+  maestroId String
+  usuarioId String
+  createdAt DateTime @default(now())
+  
+  // Relaciones
+  maestro   Maestro  @relation(fields: [maestroId], references: [id], onDelete: Cascade)
+  usuario   User     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@map("transacciones")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum TipoTransaccion {
+  ENTRADA
+  SALIDA
+}
+

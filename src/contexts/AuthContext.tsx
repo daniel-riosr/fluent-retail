@@ -1,14 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: 'customer' | 'admin';
-}
+import { api, User, Role } from '@/lib/api';
+import { supabase } from '@/lib/supabase';
 
 interface AuthContextType {
   user: User | null;
+  isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAdmin: boolean;
@@ -16,50 +12,80 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Mock users for demonstration
-const MOCK_USERS = [
-  { id: '1', email: 'cliente@ejemplo.com', password: 'cliente123', name: 'Cliente Demo', role: 'customer' as const },
-  { id: '2', email: 'admin@ejemplo.com', password: 'admin123', name: 'Admin Demo', role: 'admin' as const },
-];
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    const stored = localStorage.getItem('user');
-    return stored ? JSON.parse(stored) : null;
-  });
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Cargar usuario desde la sesión al iniciar
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('user');
-    }
-  }, [user]);
+    const loadUser = async () => {
+      setIsLoading(true);
+      const storedUserId = localStorage.getItem('auth_user_id');
+      if (storedUserId) {
+        try {
+          const dbUser = await api.getUserById(storedUserId);
+          if (dbUser) {
+            setUser(dbUser);
+          } else {
+            localStorage.removeItem('auth_user_id');
+          }
+        } catch (error) {
+          console.error('Error al cargar usuario:', error);
+          localStorage.removeItem('auth_user_id');
+        }
+      }
+      setIsLoading(false);
+    };
+
+    loadUser();
+  }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    const foundUser = MOCK_USERS.find(
-      u => u.email === email && u.password === password
-    );
+    try {
+      // Buscar usuario en la base de datos
+      const dbUser = await api.getUserByEmail(email);
 
-    if (foundUser) {
-      const { password: _, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
+      if (!dbUser) {
+        return false;
+      }
+
+      // Verificar contraseña
+      // Nota: En producción, esto debería hacerse en el backend con hash
+      // Por ahora, obtenemos la contraseña de la base de datos para comparar
+      const { data: userData, error } = await supabase
+        .from('users')
+        .select('password')
+        .eq('id', dbUser.id)
+        .single();
+
+      if (error || !userData) {
+        return false;
+      }
+
+      // Comparar contraseñas (en producción, usar bcrypt o similar)
+      if (userData.password !== password) {
+        return false;
+      }
+
+      // Guardar usuario en el estado y localStorage
+      setUser(dbUser);
+      localStorage.setItem('auth_user_id', dbUser.id);
       return true;
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      return false;
     }
-    return false;
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('auth_user_id');
   };
 
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === 'ADMIN';
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAdmin }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
