@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { LayoutDashboard, Package, Users, LogOut } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -61,6 +61,9 @@ export const Sidebar = () => {
         <SidebarHeader className="p-4">
           <div className="flex items-center gap-3">
             <Avatar>
+              {user?.photo && (
+                <AvatarImage src={user.photo} alt={user.name || 'Usuario'} />
+              )}
               <AvatarFallback>{getInitials(user?.name || 'U')}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">

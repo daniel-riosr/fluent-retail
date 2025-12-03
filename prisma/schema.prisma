@@ -15,6 +15,7 @@ model User {
   email     String   @unique
   name      String
   password  String
+  photo     String?  // URL de la foto del usuario (opcional)
   role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

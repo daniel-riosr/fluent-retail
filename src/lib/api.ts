@@ -8,6 +8,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  photo?: string; // URL de la foto del usuario (opcional)
   role: Role;
   createdAt: string;
 }
@@ -56,6 +57,7 @@ export const api = {
       id: user.id,
       email: user.email,
       name: user.name,
+      photo: user.photo || undefined,
       role: user.role as Role,
       createdAt: user.createdAt,
     }));
@@ -78,6 +80,7 @@ export const api = {
       id: data.id,
       email: data.email,
       name: data.name,
+      photo: data.photo || undefined,
       role: data.role as Role,
       createdAt: data.createdAt,
     };
@@ -100,6 +103,7 @@ export const api = {
       id: data.id,
       email: data.email,
       name: data.name,
+      photo: data.photo || undefined,
       role: data.role as Role,
       createdAt: data.createdAt,
     };
@@ -122,6 +126,7 @@ export const api = {
       id: data.id,
       email: data.email,
       name: data.name,
+      photo: data.photo || undefined,
       role: data.role as Role,
       createdAt: data.createdAt,
     };
