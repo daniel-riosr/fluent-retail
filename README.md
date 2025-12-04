@@ -1,10 +1,13 @@
 # Sistema de Gestión de Inventario
 
-Sistema completo de gestión de inventario con autenticación, gestión de transacciones, maestros y usuarios con roles diferenciados.
+Sistema completo de gestión pedidos inventario con autenticación, gestión de transacciones, maestros y usuarios con roles diferenciados.
 
 ## Integrantes del Equipo
 
-[Agregar nombres de los integrantes del equipo aquí]
+Daniel Camilo Rios Ramirez - 1001652467
+Mateo Blandón Mesa - 1017235348
+Juan Camilo Morales Villada - 1036926393
+Juan Camilo Velez Chaverra - 1077997236
 
 ## Tecnologías Utilizadas
 
