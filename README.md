@@ -2,11 +2,17 @@
 
 Sistema completo de gestión pedidos inventario con autenticación, gestión de transacciones, maestros y usuarios con roles diferenciados.
 
+#Vercel link 
+https://novaorder-gestion.vercel.app/
+
 ## Integrantes del Equipo
 
 Daniel Camilo Rios Ramirez - 1001652467
+
 Mateo Blandón Mesa - 1017235348
+
 Juan Camilo Morales Villada - 1036926393
+
 Juan Camilo Velez Chaverra - 1077997236
 
 ## Tecnologías Utilizadas
